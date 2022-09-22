@@ -1,4 +1,4 @@
-FROM rust:1.63.0-buster
+FROM rust:1.63.0
 
 RUN apt-get update
 RUN apt-get upgrade -y
