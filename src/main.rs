@@ -9,21 +9,18 @@ fn index() -> &'static str {
 #[get("/hello")]
 async fn hello() -> String {
     let client = reqwest::Client::new();
+    let response = client.get("https://www.google.com/").send().await;
 
-    let response = client
-        .get("https://httpbin.org/ip")
-        .send()
-        .await
-        .unwrap()
-        .text()
-        .await;
-
-    let resp = match response {
-        Ok(response) => response,
-        Err(err) => err.to_string(),
-    };
-
-    resp
+    match response {
+        Ok(res) => {
+            let c = res.text().await;
+            match c {
+                Ok(t) => t,
+                Err(_) => "Can't be parsed".to_string(),
+            }
+        }
+        Err(_) => "Error from server".to_string(),
+    }
 }
 
 #[launch]
