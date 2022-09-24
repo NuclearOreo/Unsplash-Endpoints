@@ -1,4 +1,5 @@
 mod routes;
+use routes::hello;
 
 #[macro_use]
 extern crate rocket;
@@ -12,5 +13,5 @@ fn index() -> &'static str {
 fn rocket() -> _ {
     rocket::build()
         .mount("/", routes![index])
-        .mount("/unsplash/", routes![routes::hello])
+        .mount("/unsplash/", routes![hello])
 }
