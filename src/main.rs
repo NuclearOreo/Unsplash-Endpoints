@@ -1,7 +1,7 @@
 mod routes;
 mod unsplash;
 
-use routes::hello;
+use routes::get_photos;
 
 #[macro_use]
 extern crate rocket;
@@ -15,5 +15,5 @@ fn index() -> &'static str {
 fn rocket() -> _ {
     rocket::build()
         .mount("/", routes![index])
-        .mount("/unsplash/", routes![hello])
+        .mount("/unsplash/", routes![get_photos])
 }

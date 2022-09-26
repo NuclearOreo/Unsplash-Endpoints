@@ -1,7 +1,7 @@
 use crate::unsplash::UnsplashClient;
 
-#[get("/hello")]
-pub async fn hello() -> String {
+#[get("/get_photos")]
+pub async fn get_photos() -> String {
     let unsplash_client = UnsplashClient::new();
     let result = unsplash_client.get_page().await;
 
