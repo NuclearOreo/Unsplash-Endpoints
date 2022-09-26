@@ -1,5 +1,4 @@
-mod unsplash;
-use unsplash::UnsplashClient;
+use crate::unsplash::UnsplashClient;
 
 #[get("/hello")]
 pub async fn hello() -> String {

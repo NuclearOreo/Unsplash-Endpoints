@@ -1,4 +1,6 @@
 mod routes;
+mod unsplash;
+
 use routes::hello;
 
 #[macro_use]
