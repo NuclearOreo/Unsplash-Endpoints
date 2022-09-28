@@ -1,5 +1,6 @@
 use reqwest::header::AUTHORIZATION;
 use reqwest::Client;
+use std::env;
 use std::error::Error;
 
 #[derive(Debug)]
@@ -11,16 +12,27 @@ pub struct UnsplashClient {
 impl UnsplashClient {
     pub fn new() -> UnsplashClient {
         let client = reqwest::Client::new();
-        let auth = "".to_string();
+        let auth = match env::var("REACT_APP_UNSPLASH") {
+            Ok(v) => v,
+            Err(_) => "".to_string(),
+        };
         UnsplashClient { client, auth }
     }
 
-    pub async fn get_page(&self) -> Result<String, Box<dyn Error>> {
+    pub async fn get_photos(
+        &self,
+        page_number: i32,
+        per_page: i32,
+    ) -> Result<String, Box<dyn Error>> {
         let auth = self.auth.clone();
+        let url = format!(
+            "https://api.unsplash.com/users/ussamaazam/photos?page={}&per_page={}",
+            page_number, per_page
+        );
 
         Ok(self
             .client
-            .get("https://api.unsplash.com/users/ussamaazam/photos")
+            .get(url)
             .header(AUTHORIZATION, auth)
             .send()
             .await?
