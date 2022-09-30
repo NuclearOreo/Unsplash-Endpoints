@@ -12,7 +12,7 @@ pub struct UnsplashClient {
 impl UnsplashClient {
     pub fn new() -> UnsplashClient {
         let client = reqwest::Client::new();
-        let auth = match env::var("REACT_APP_UNSPLASH") {
+        let auth = match env::var("unsplash_client_id") {
             Ok(v) => v,
             Err(_) => "".to_string(),
         };
