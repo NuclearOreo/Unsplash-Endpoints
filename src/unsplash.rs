@@ -1,5 +1,6 @@
 use reqwest::header::AUTHORIZATION;
 use reqwest::Client;
+use serde_json::Value;
 use std::env;
 use std::error::Error;
 
@@ -23,7 +24,7 @@ impl UnsplashClient {
         &self,
         page_number: i32,
         per_page: i32,
-    ) -> Result<String, Box<dyn Error>> {
+    ) -> Result<Value, Box<dyn Error>> {
         let auth = self.auth.clone();
         let url = format!(
             "https://api.unsplash.com/users/ussamaazam/photos?page={}&per_page={}",
@@ -36,7 +37,7 @@ impl UnsplashClient {
             .header(AUTHORIZATION, auth)
             .send()
             .await?
-            .text()
+            .json::<serde_json::Value>()
             .await?)
     }
 }
