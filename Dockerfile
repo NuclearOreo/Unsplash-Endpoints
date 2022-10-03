@@ -4,6 +4,6 @@ WORKDIR /app
 COPY . .
 RUN cargo build --release
 
-FROM scratch
-COPY --from=builder /app/target/release/unsplash-endpoints /unsplash-endpoints
+FROM rust
+COPY --from=builder /app/target/release/unsplash-endpoints .
 CMD ["/unsplash-endpoints"]
