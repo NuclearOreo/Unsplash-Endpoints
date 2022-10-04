@@ -1,10 +1,10 @@
-FROM rust as builder
+FROM rust:1.64 as builder
 ENV USER root
 WORKDIR /app
 COPY . .
-RUN cargo build --release
+RUN cargo install --path .
 
-FROM rust
-COPY --from=builder /app/target/release/unsplash-endpoints .
+FROM rust:1.64 as runner
+COPY --from=builder /usr/local/cargo/bin/unsplash-endpoints /usr/local/bin/unsplash-endpoints
 EXPOSE 8000
-CMD ["/unsplash-endpoints"]
+CMD ["unsplash-endpoints"]
