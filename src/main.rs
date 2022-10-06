@@ -17,3 +17,14 @@ fn rocket() -> _ {
         .mount("/", routes![index])
         .mount("/unsplash/", routes![get_photos])
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_index() {
+        let res = index();
+        assert_eq!("Service is running 🚀", res)
+    }
+}
