@@ -3,7 +3,7 @@ services:
   app:
     build:
       context: .
-      args:
-        - unsplash_client_id=${unsplash_client_id}
     ports:
       - 8000:8000
+    environment:
+      - unsplash_client_id=${unsplash_client_id}
