@@ -14,3 +14,22 @@ pub async fn get_photos(page_number: Option<i32>, per_page: Option<i32>) -> Valu
         Err(err) => json!({ "Error": format!("{}", err) }),
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use rocket::http::Status;
+    use rocket::local::blocking::Client;
+    use rocket::{Build, Rocket};
+
+    fn rocket() -> Rocket<Build> {
+        rocket::build().mount("/", routes![get_photos])
+    }
+
+    #[test]
+    fn test_get_photo() {
+        let client = Client::tracked(rocket()).expect("valid `Rocket`");
+        let response = client.get("/get_photos").dispatch();
+        assert_eq!(response.status(), Status::Ok);
+    }
+}
