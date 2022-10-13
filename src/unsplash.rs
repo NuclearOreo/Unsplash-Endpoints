@@ -41,3 +41,6 @@ impl UnsplashClient {
             .await?)
     }
 }
+
+#[cfg(test)]
+mod test {}
