@@ -37,3 +37,9 @@ jobs:
         run: |-
           docker tag unsplash-api:latest gcr.io/website-353503/unsplash-api:latest
           docker push gcr.io/website-353503/unsplash-api:latest
+
+      - name: Deploy
+        uses: "google-github-actions/deploy-cloudrun@v0"
+        with:
+          image: "gcr.io/website-353503/unsplash-api:latest"
+          service: "unsplash-api"

@@ -2,6 +2,7 @@
     "cSpell.words": [
         "reqwest",
         "clippy",
-        "gcloud"
+        "gcloud",
+        "cloudrun"
     ]
 }
