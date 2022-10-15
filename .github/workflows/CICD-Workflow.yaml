@@ -8,7 +8,7 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  deploy-site:
+  deploy-api:
     runs-on: ubuntu-latest
 
     steps:
@@ -35,5 +35,5 @@ jobs:
 
       - name: Push Docker Image to Container Registry (GCR)
         run: |-
-          docker tag site:latest gcr.io/website-353503/unsplash-api:latest
+          docker tag unsplash-api:latest gcr.io/website-353503/unsplash-api:latest
           docker push gcr.io/website-353503/unsplash-api:latest
