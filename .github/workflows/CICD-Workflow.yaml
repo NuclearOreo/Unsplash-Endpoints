@@ -2,7 +2,7 @@ name: Unsplash Endpoints CI/CD
 
 on:
   push:
-    branches: ["Github-Workflow"]
+    branches: ["main"]
 
 env:
   CARGO_TERM_COLOR: always
