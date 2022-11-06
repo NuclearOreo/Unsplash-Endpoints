@@ -42,4 +42,5 @@ jobs:
         uses: "google-github-actions/deploy-cloudrun@v0"
         with:
           image: "gcr.io/website-353503/unsplash-api:latest"
+          region: "us-east1"
           service: "unsplash-api"
