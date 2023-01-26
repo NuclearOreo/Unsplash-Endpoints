@@ -42,6 +42,8 @@ impl UnsplashClient {
     }
 }
 
+// In case I forgot, here's a blog for testing reqwest: https://write.as/balrogboogie/testing-reqwest-based-clients
+
 #[cfg(test)]
 mod test {
     use super::*;
