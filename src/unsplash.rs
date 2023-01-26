@@ -43,4 +43,18 @@ impl UnsplashClient {
 }
 
 #[cfg(test)]
-mod test {}
+mod test {
+    use super::*;
+
+    #[test]
+    fn testing_client_auth() {
+        let client = UnsplashClient::new();
+
+        let auth = match env::var("unsplash_client_id") {
+            Ok(v) => v,
+            Err(_) => "".to_string(),
+        };
+
+        assert_eq!(client.auth, auth);
+    }
+}
