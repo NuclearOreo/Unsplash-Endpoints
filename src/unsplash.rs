@@ -37,7 +37,7 @@ impl UnsplashClient {
             .header(AUTHORIZATION, auth)
             .send()
             .await?
-            .json::<serde_json::Value>()
+            .json()
             .await?;
 
         Ok(value)
