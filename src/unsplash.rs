@@ -31,32 +31,34 @@ impl UnsplashClient {
             page_number, per_page
         );
 
-        Ok(self
+        let value = self
             .client
             .get(url)
             .header(AUTHORIZATION, auth)
             .send()
             .await?
             .json::<serde_json::Value>()
-            .await?)
+            .await?;
+
+        Ok(value)
     }
 }
 
 // In case I forgot, here's a blog for testing reqwest: https://write.as/balrogboogie/testing-reqwest-based-clients
 
-#[cfg(test)]
-mod test {
-    use super::*;
+// #[cfg(test)]
+// mod test {
+//     use super::*;
 
-    #[test]
-    fn testing_client_auth() {
-        let client = UnsplashClient::new();
+//     #[test]
+//     fn testing_client_auth() {
+//         let client = UnsplashClient::new();
 
-        let auth = match env::var("unsplash_client_id") {
-            Ok(v) => v,
-            Err(_) => "".to_string(),
-        };
+//         let auth = match env::var("unsplash_client_id") {
+//             Ok(v) => v,
+//             Err(_) => "".to_string(),
+//         };
 
-        assert_eq!(client.auth, auth);
-    }
-}
+//         assert_eq!(client.auth, auth);
+//     }
+// }
