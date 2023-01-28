@@ -44,21 +44,38 @@ impl UnsplashClient {
     }
 }
 
-// In case I forgot, here's a blog for testing reqwest: https://write.as/balrogboogie/testing-reqwest-based-clients
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use mockito::mock;
+    use serde_json::json;
 
-// #[cfg(test)]
-// mod test {
-//     use super::*;
+    #[tokio::test]
+    async fn test_get_photos() {
+        let _m = mock(
+            "GET",
+            "https://api.unsplash.com/users/ussamaazam/photos?page=1&per_page=10",
+        )
+        .with_status(200)
+        .with_body(r#"{"id":1,"name":"Test"}"#)
+        .create();
 
-//     #[test]
-//     fn testing_client_auth() {
-//         let client = UnsplashClient::new();
+        let client = reqwest::Client::new();
+        let unsplash_client = UnsplashClient {
+            client,
+            auth: "".to_string(),
+        };
+        let result = unsplash_client.get_photos(1, 10).await;
 
-//         let auth = match env::var("unsplash_client_id") {
-//             Ok(v) => v,
-//             Err(_) => "".to_string(),
-//         };
+        assert!(result.is_ok());
 
-//         assert_eq!(client.auth, auth);
-//     }
-// }
+        // let value = result.unwrap();
+
+        // println!("{:?}", value);
+        // println!("Hello");
+
+        // let json = json!({"id": 1, "name": "Test"});
+
+        // assert_eq!(value, json);
+    }
+}
