@@ -13,4 +13,3 @@ serde_json = "1.0.85"
 [dev-dependencies]
 rusty-hook = "^0.11.2"
 tokio = "*"
-mockito = "*"
