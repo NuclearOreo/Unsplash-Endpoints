@@ -31,16 +31,38 @@ impl UnsplashClient {
             page_number, per_page
         );
 
-        Ok(self
+        let value = self
             .client
             .get(url)
             .header(AUTHORIZATION, auth)
             .send()
             .await?
-            .json::<serde_json::Value>()
-            .await?)
+            .json()
+            .await?;
+
+        Ok(value)
     }
 }
 
 #[cfg(test)]
-mod test {}
+mod tests {
+    use super::*;
+
+    #[tokio::test]
+    async fn test_get_photos() {
+        let client = reqwest::Client::new();
+        let unsplash_client = UnsplashClient {
+            client,
+            auth: "".to_string(),
+        };
+        let result = unsplash_client.get_photos(1, 10).await;
+
+        // Assert if the call was successful
+        assert!(result.is_ok());
+
+        let response = result.unwrap();
+
+        // Assert if response is an object
+        assert!(response.is_object());
+    }
+}

@@ -1684,6 +1684,7 @@ dependencies = [
  "rocket",
  "rusty-hook",
  "serde_json",
+ "tokio",
 ]
 
 [[package]]
