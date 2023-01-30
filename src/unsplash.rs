@@ -47,19 +47,9 @@ impl UnsplashClient {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use mockito::mock;
-    use serde_json::json;
 
     #[tokio::test]
     async fn test_get_photos() {
-        let _m = mock(
-            "GET",
-            "https://api.unsplash.com/users/ussamaazam/photos?page=1&per_page=10",
-        )
-        .with_status(200)
-        .with_body(r#"{"id":1,"name":"Test"}"#)
-        .create();
-
         let client = reqwest::Client::new();
         let unsplash_client = UnsplashClient {
             client,
@@ -67,15 +57,12 @@ mod tests {
         };
         let result = unsplash_client.get_photos(1, 10).await;
 
+        // Assert if the call was successful
         assert!(result.is_ok());
 
-        // let value = result.unwrap();
+        let response = result.unwrap();
 
-        // println!("{:?}", value);
-        // println!("Hello");
-
-        // let json = json!({"id": 1, "name": "Test"});
-
-        // assert_eq!(value, json);
+        // Assert if response is an object
+        assert!(response.is_object());
     }
 }
