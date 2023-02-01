@@ -10,9 +10,6 @@ env:
 jobs:
   deploy-api:
     runs-on: ubuntu-latest
-    container:
-      image: xd009642/tarpaulin:develop-nightly
-      options: --security-opt seccomp=unconfined
 
     steps:
       - uses: actions/checkout@v3
@@ -27,9 +24,8 @@ jobs:
       - name: Run linter
         run: cargo clippy --verbose
 
-      - name: Generate code coverage
-        run: |
-          cargo +nightly tarpaulin --verbose --all-features --workspace --timeout 120 --out Xml
+      - name: Run Tests
+        run: cargo test --verbose
 
       - name: Build Docker Image
         run: docker build -t unsplash-api:latest .
