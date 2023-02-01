@@ -1,0 +1,24 @@
+name: Unsplash Endpoints Pull Request Check
+
+on:
+  pull-request:
+    branches: ["main"]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  PR-Check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build
+        run: cargo build --verbose
+
+      - name: Run linter
+        run: cargo clippy --verbose
+
+      - name: Run tests
+        run: cargo test --verbose
