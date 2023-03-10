@@ -13,3 +13,16 @@ EndPoint:
   - URL Params:
       - page_number: integer
       - pre_page: integer
+
+## Coverage
+
+Using [cargo-llvm-cov](https://crates.io/crates/cargo-llvm-cov/0.1.13) for code coverage
+
+### Installation
+
+- `rustup component add llvm-tools-preview --toolchain nightly`
+- `cargo install cargo-llvm-cov`
+
+### Command
+- Prints Summary: `cargo llvm-cov`
+- Generates HTML: `cargo llvm-cov --html`
