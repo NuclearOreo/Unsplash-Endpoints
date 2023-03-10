@@ -10,12 +10,12 @@ env:
 jobs:
   PR-Check:
     runs-on: ubuntu-latest
-    container:
-      image: xd009642/tarpaulin:develop-nightly
-      options: --security-opt seccomp=unconfined
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Install cargo-llvm-cov
+        uses: taiki-e/install-action@cargo-llvm-cov
 
       - name: Build
         run: cargo build --verbose
@@ -24,5 +24,4 @@ jobs:
         run: cargo clippy --verbose
 
       - name: Generate code coverage
-        run: |
-          cargo +nightly tarpaulin --verbose --all-features --workspace --timeout 120 --out Xml
+        run: cargo llvm-cov
